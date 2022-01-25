@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: apigateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: test1
+          uri: http://192.168.64.2:8081
+          predicates:
+            - Path=/instance1/**
+          filters:
+            - RewritePath=/instance1(?<segment>/?.*), $\{segment}
+        - id: test2
+          uri: http://192.168.64.2:8082
+          predicates:
+            - Path=/instance2/**
+          filters:
+            - RewritePath=/instance2(?<segment>/?.*), $\{segment}
+management:
+  endpoint:
+    gateway:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: gateway
