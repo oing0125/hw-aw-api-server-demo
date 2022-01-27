@@ -1,31 +1,31 @@
 server:
-  port: 8080
+  port: 8088
 
 eureka:
   client:
     register-with-eureka: true
     fetch-registry: true
     serviceUrl:
-      defalutZone: http://localhost:8761/eureka
+      defalutZone: http://${EUREKA_ENDPOINT}
 
 spring:
   application:
-    name: apigateway-service
+    name: apigateway
   cloud:
     gateway:
       routes:
-        - id: test1
-          uri: http://192.168.64.2:8081
+        - id: service1
+          uri: lb://service1
           predicates:
-            - Path=/instance1/**
+            - Path=/service1/**
           filters:
-            - RewritePath=/instance1(?<segment>/?.*), $\{segment}
+            - RewritePath=/service1(?<segment>/?.*), $\{segment}
         - id: test2
-          uri: http://192.168.64.2:8082
+          uri: lb://service2
           predicates:
-            - Path=/instance2/**
+            - Path=/service2/**
           filters:
-            - RewritePath=/instance2(?<segment>/?.*), $\{segment}
+            - RewritePath=/service2(?<segment>/?.*), $\{segment}
 
 management:
   endpoint:
