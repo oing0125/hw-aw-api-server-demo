@@ -5,7 +5,7 @@ eureka:
   client:
     register-with-eureka: true
     fetch-registry: true
-    serviceUrl:
+    service-url:
       defalutZone: http://eureka:8761/eureka
 
 spring:
