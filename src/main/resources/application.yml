@@ -1,12 +1,13 @@
 server:
   port: 8088
 
+# eureka
 eureka:
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://${EUREKA_ENDPOINT}
+      defaultZone: ${EUREKA_ENDPOINT}
 
 spring:
   application:
@@ -26,6 +27,11 @@ spring:
             - Path=/service2/**
           filters:
             - RewritePath=/service2(?<segment>/?.*), $\{segment}
+  sleuth:
+    sampler:
+      probability: 1.0
+  zipkin:
+    base-url: ${ZIPKIN_ENDPOINT}
 
 management:
   endpoint:
