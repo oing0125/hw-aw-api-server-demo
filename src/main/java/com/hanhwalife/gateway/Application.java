@@ -32,7 +32,12 @@ public class Application {
 	@Bean
 	public CommandLineRunner registerVisibleDefinition(SwaggerUiConfigParameters swaggerUiConfigParameters){
 		String visibleDefinitionTxt = env.getProperty("hw.swagger.visible-definition");
-		System.out.println("visible definition: "+visibleDefinitionTxt);
+		System.out.println("visible definition: " + visibleDefinitionTxt);
+		System.out.println("swagger config url: " + swaggerUiConfigParameters.getConfigUrl());
+		System.out.println("swagger ui root path: " + swaggerUiConfigParameters.getUiRootPath());
+		System.out.println("swagger url: " + swaggerUiConfigParameters.getUrl());
+		System.out.println("swagger path: " + swaggerUiConfigParameters.getPath());
+		System.out.println("swagger validator url: " + swaggerUiConfigParameters.getValidatorUrl());
 		if(visibleDefinitionTxt != null && !"".equals(visibleDefinitionTxt.trim())){
 			String[] visibleDefinitionArr = visibleDefinitionTxt.split(",");
 			return args -> Arrays.stream(visibleDefinitionArr)
