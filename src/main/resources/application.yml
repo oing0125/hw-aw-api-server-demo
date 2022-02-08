@@ -14,14 +14,23 @@ spring:
     name: apigateway
   cloud:
     gateway:
+      discovery:
+        locator:
+          enabled: true
       routes:
+        - id: ${spring.application.name}
+          uri: http://localhost:${server.port}
+          predicates:
+            - Path=/v3/api-docs/**
+          filters:
+            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
         - id: service1
           uri: lb://service1
           predicates:
             - Path=/service1/**
           filters:
             - RewritePath=/service1(?<segment>/?.*), $\{segment}
-        - id: test2
+        - id: service2
           uri: lb://service2
           predicates:
             - Path=/service2/**
@@ -33,6 +42,13 @@ spring:
   zipkin:
     base-url: ${ZIPKIN_ENDPOINT}
 
+springdoc:
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+  swagger-ui:
+    path: /swagger-ui.html
+    disable-swagger-default-url: true
+
 management:
   endpoint:
     gateway:
@@ -41,3 +57,8 @@ management:
     web:
       exposure:
         include: gateway
+
+
+hw:
+  swagger:
+    visible-definition: service1, service2  # Swagger에서 보여줄 definition 정의
