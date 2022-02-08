@@ -12,6 +12,8 @@ eureka:
 spring:
   application:
     name: apigateway
+  instance:
+    hostname: localhost
   cloud:
     gateway:
       discovery:
@@ -19,7 +21,7 @@ spring:
           enabled: true
       routes:
         - id: ${spring.application.name}
-          uri: http://localhost:${server.port}
+          uri: http://${spring.instance.hostname}:${server.port}
           predicates:
             - Path=/v3/api-docs/**
           filters:
@@ -61,4 +63,4 @@ management:
 
 hw:
   swagger:
-    visible-definition: service1, service2  # Swagger에서 보여줄 definition 정의
+    visible-definition: service1, service2  # Swagger에서 보여줄 definition
