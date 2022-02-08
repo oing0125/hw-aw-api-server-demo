@@ -11,7 +11,7 @@ eureka:
 
 spring:
   application:
-    name: apigateway
+    name: api-gateway
   cloud:
     gateway:
       discovery:
