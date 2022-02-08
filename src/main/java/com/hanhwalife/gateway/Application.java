@@ -32,6 +32,7 @@ public class Application {
 	@Bean
 	public CommandLineRunner registerVisibleDefinition(SwaggerUiConfigParameters swaggerUiConfigParameters){
 		String visibleDefinitionTxt = env.getProperty("hw.swagger.visible-definition");
+		System.out.println("visible definition: "+visibleDefinitionTxt);
 		if(visibleDefinitionTxt != null && !"".equals(visibleDefinitionTxt.trim())){
 			String[] visibleDefinitionArr = visibleDefinitionTxt.split(",");
 			return args -> Arrays.stream(visibleDefinitionArr)
