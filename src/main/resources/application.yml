@@ -12,8 +12,6 @@ eureka:
 spring:
   application:
     name: apigateway
-  instance:
-    hostname: localhost
   cloud:
     gateway:
       discovery:
@@ -21,7 +19,7 @@ spring:
           enabled: true
       routes:
         - id: ${spring.application.name}
-          uri: http://${spring.instance.hostname}:${server.port}
+          uri: http://localhost:${server.port}
           predicates:
             - Path=/v3/api-docs/**
           filters:
